@@ -1,4 +1,5 @@
-# vue-showcase
+# Showcase application on vue.js
+[![Build Status](https://travis-ci.org/SeregaMatin/vue-showcase.svg?branch=master)](https://travis-ci.org/SeregaMatin/vue-showcase)
 
 ## Project setup
 ```
