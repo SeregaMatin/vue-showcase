@@ -1,0 +1,11 @@
+.link {
+  &__icon {
+    &--left-aligned {
+      margin-right: $link__icon__margin;
+    }
+
+    &--right-aligned {
+      margin-left: $link__icon__margin;
+    }
+  }
+}

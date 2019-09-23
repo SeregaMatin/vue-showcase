@@ -1,0 +1,11 @@
+.button {
+  &__icon {
+    &--left-aligned {
+      margin-right: $button__icon__margin;
+    }
+
+    &--right-aligned {
+      margin-left: $button__icon__margin;
+    }
+  }
+}

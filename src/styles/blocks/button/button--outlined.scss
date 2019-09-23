@@ -1,0 +1,12 @@
+.button {
+  &--outlined {
+    color: $color__primary;
+    border-radius: 1px;
+    border: 1px solid $color__neutral--pale;
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: $color__neutral--light;
+    }
+  }
+}

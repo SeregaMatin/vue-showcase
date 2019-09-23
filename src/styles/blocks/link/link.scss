@@ -1,0 +1,28 @@
+.link {
+  cursor: pointer;
+  font-size: 0.95 * $typography__font-size;
+  text-decoration: none;
+  color: $color__primary;
+  transition: color 0.3s;
+
+  &:hover {
+    outline: none;
+    color: $color__secondary;
+  }
+
+  &:active {
+    outline: none;
+  }
+
+  &--no-hover {
+    transition: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+
+  &--on-surface {
+    color: $color__on-surface;
+  }
+}

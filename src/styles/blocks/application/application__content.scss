@@ -1,0 +1,12 @@
+.application {
+  &__content {
+    flex: 1;
+    margin-top: $margin-top__content + $height__header-top-bar + $height__header-navigation-bar;
+  }
+
+  &__content-container {
+    padding: 0 16px 0 16px;
+    width: 60%;
+    margin: 0 auto 0 auto;
+  }
+}
