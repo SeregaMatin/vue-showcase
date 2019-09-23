@@ -1,30 +1,30 @@
 .icon {
   display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-  vertical-align: -0.2em;
+  width: 1em;
+  height: 1em;
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
-  font-size: $typography__font-size;
-
-  &--small {
-    font-size: 0.6 * $typography__font-size;
-    vertical-align: -0.1em;
+  font-size: inherit;
+  vertical-align: middle;
+  
+  &--size_xs {
+    font-size: 0.2 * $typography__font-size;
+  }
+  
+  &--size_s {
+    font-size: 0.8 * $typography__font-size;
   }
 
-  &--medium {
+  &--size_m {
     font-size: 1.4 * $typography__font-size;
-    vertical-align: -0.3em;
   }
 
-  &--large {
-    font-size: 2.2 * $typography__font-size;
-    vertical-align: -0.4em;
+  &--size_l {
+    font-size: 2.0 * $typography__font-size;
   }
 
-  &--extra-large {
-    font-size: 3 * $typography__font-size;
-    vertical-align: -0.45em;
+  &--size_xl {
+    font-size: 2.6 * $typography__font-size;
   }
 }

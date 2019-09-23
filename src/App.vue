@@ -3,14 +3,14 @@
     <div class="application__header">
       <div class="application__header-top-bar">
         <a class="button application__header-button" href="https://github.com/SeregaMatin/vue-showcase">
-          <svg class="icon icon--medium button__icon button__icon--left-aligned">
+          <svg class="icon icon icon--size_m button__icon button__icon--left-aligned">
             <use xlink:href="./assets/icons/icomoon.svg#icon-github"></use>
           </svg>
           Страница проекта на GitHub
         </a>
         <a class="button application__header-button application__header-cart-button" role="button">
           Корзина покупок
-          <svg class="icon icon--medium button__icon button__icon--right-aligned">
+          <svg class="icon icon--size_m button__icon button__icon--right-aligned">
             <use xlink:href="./assets/icons/icomoon.svg#icon-cart"></use>
           </svg>
         </a>
@@ -45,13 +45,13 @@
         </router-link>
         <div class="application__footer-links">
           <a class="link link--on-surface" href="https://github.com/SeregaMatin">
-            <svg class="icon link__icon link__icon--left-aligned">
+            <svg class="icon icon--size_m link__icon link__icon--left-aligned">
               <use xlink:href="./assets/icons/icomoon.svg#icon-github"></use>
             </svg>
             github.com/SeregaMatin
           </a>
           <a class="link link--on-surface" href="https://vk.com/seregamatin">
-            <svg class="icon link__icon link__icon--left-aligned">
+            <svg class="icon icon--size_m link__icon link__icon--left-aligned">
               <use xlink:href="./assets/icons/icomoon.svg#icon-vk"></use>
             </svg>
             vk.com/seregamatin
@@ -59,13 +59,13 @@
         </div>
         <div class="application__footer-contacts">
           <a class="link link--on-surface typography typography--body1" href="mailto:seregamatin@gmail.com">
-            <svg class="icon link__icon link__icon--left-aligned">
+            <svg class="icon icon--size_m link__icon link__icon--left-aligned">
               <use xlink:href="./assets/icons/icomoon.svg#icon-mail"></use>
             </svg>
             seregamatin@gmail.com
           </a>
           <a class="link link--on-surface" href="https://api.whatsapp.com/send?phone=79124923206">
-            <svg class="icon link__icon link__icon--left-aligned">
+            <svg class="icon icon--size_m link__icon link__icon--left-aligned">
               <use xlink:href="./assets/icons/icomoon.svg#icon-whatsapp"></use>
             </svg>
             +7(912)492-32-06

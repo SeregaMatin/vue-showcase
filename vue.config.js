@@ -4,5 +4,5 @@ module.exports = {
   // GitHub pages deployment is done by TravicCI (see .travis.yml file at root of the repo).
   publicPath: process.env.NODE_ENV === 'production'
     ? '/vue-showcase/'
-    : '/',
+    : '/'
 };

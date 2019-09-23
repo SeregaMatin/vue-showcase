@@ -1,6 +1,8 @@
 <template>
   <div class="page-not-found">
-    404 - Page not found
+    <h1 class="typography typography--headline1">
+      404 - Страница не найдена
+    </h1>
   </div>
 </template>
 
