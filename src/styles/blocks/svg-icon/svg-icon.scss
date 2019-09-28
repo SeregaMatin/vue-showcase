@@ -1,0 +1,53 @@
+.svg-icon {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+
+  &__icon {
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    font-size: inherit;
+    vertical-align: middle;
+  }
+
+  &--size_xs {
+    font-size: 0.4 * $typography__font-size;
+  }
+
+  &--size_s {
+    font-size: 0.9 * $typography__font-size;
+  }
+
+  &--size_m {
+    font-size: 1.4 * $typography__font-size;
+  }
+
+  &--size_l {
+    font-size: 1.9 * $typography__font-size;
+  }
+
+  &--size_xl {
+    font-size: 2.4 * $typography__font-size;
+  }
+
+  &--size_xxl {
+    font-size: 2.9 * $typography__font-size;
+  }
+
+  &__badge {
+    position: absolute;
+    right: -40%;
+    top: -40%;
+    font-size: 40%;
+    padding: 0.6em;
+    border-radius: 999px;
+    line-height: 0.60em;
+    background: $color__secondary;
+    color: $color__on-secondary;
+    text-align: center;
+    font-weight: bold;
+  }
+}

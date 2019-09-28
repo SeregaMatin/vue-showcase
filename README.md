@@ -7,7 +7,7 @@ You can use your favorite package manager (see [instructions in official documen
 Or download installer for your platform (see [available installers](https://nodejs.org/en/download/))
 
 ## Install yarn if it isn't installed yet
-You can use also use package manager or download installer (see [instructions in official documentation](https://yarnpkg.com/en/docs/install))
+You can also use package manager or download installer (see [instructions in official documentation](https://yarnpkg.com/en/docs/install))
 
 ## Install vue-cli 3.x if it isn't installed yet
 ```
