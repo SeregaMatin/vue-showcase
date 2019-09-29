@@ -11,7 +11,8 @@
     </div>
     <ul v-if="products">
       <li v-for="product in products" v-bind:key="product.id">
-        {{product.id}} - {{product.name}}: ${{product.price}}
+        {{product.name}}: ${{product.price}}
+        <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
       </li>
     </ul>
     <div v-if="products">
@@ -29,6 +30,7 @@ export default {
   },
   data() {
     return {
+      publicPath: process.env.BASE_URL,
       loading: false,
       error: null,
       products: null
@@ -59,7 +61,7 @@ export default {
       this.error = null;
       this.products = null;
 
-      axios.get(`${process.env.BASE_URL}data/products.json`).then((response) => {
+      axios.get(`${this.publicPath}data/products.json`).then((response) => {
         // Take from 1 to 10 random products.
         this.products = this.getRandomArrayItems(response.data, this.getRandomInt(1, 10));
       }).catch((error) => {
