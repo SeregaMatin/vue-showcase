@@ -1,5 +1,7 @@
 <template>
   <div id="app" class="application typography">
+    <div v-if="isLoading" class="loader">
+    </div>
     <div class="application__header">
       <div class="application__header-top-bar">
         <a class="button application__header-button" href="https://github.com/SeregaMatin/vue-showcase">
@@ -11,7 +13,7 @@
         <a class="button application__header-button application__header-cart-button" role="button">
           Корзина покупок
           <svg-icon src="icomoon.svg#icon-cart" class="svg-icon--size_m button__icon button__icon--right-aligned">
-            <template v-slot:badge>8</template>
+            <template v-if="cartIsNotEmpty" v-slot:badge>{{cartItemsCount}}</template>
           </svg-icon>
         </a>
       </div>
@@ -73,40 +75,55 @@
 </template>
 
 <script>
-import SvgIcon from './components/SvgIcon.vue';
+import { mapState, mapGetters } from 'vuex';
+import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'app',
   components: {
     SvgIcon
+  },
+  computed: {
+    ...mapState({
+      isLoading: state => state.isLoading,
+      error: state => state.error
+    }),
+    ...mapGetters('cart', {
+      cartItemsCount: 'itemsCount'
+    }),
+    cartIsNotEmpty() {
+      return this.cartItemsCount > 0;
+    }
   }
 };
 </script>
 
 <style lang="scss">
-@import './styles/variables';
-@import './styles/blocks/application/variables';
-@import './styles/blocks/body/variables';
-@import './styles/blocks/button/variables';
-@import './styles/blocks/link/variables';
-@import './styles/blocks/logo/variables';
-@import './styles/blocks/navigation/variables';
-@import './styles/blocks/typography/variables';
+@import '@/styles/variables';
+@import '@/styles/blocks/application/variables';
+@import '@/styles/blocks/body/variables';
+@import '@/styles/blocks/button/variables';
+@import '@/styles/blocks/link/variables';
+@import '@/styles/blocks/loader/variables';
+@import '@/styles/blocks/logo/variables';
+@import '@/styles/blocks/navigation/variables';
+@import '@/styles/blocks/typography/variables';
 
-@import './styles/blocks/application/application';
-@import './styles/blocks/application/application__header';
-@import './styles/blocks/application/application__content';
-@import './styles/blocks/application/application__footer';
-@import './styles/blocks/body/body';
-@import './styles/blocks/button/button';
-@import './styles/blocks/button/button__icon';
-@import './styles/blocks/button/button--primary';
-@import './styles/blocks/button/button--secondary';
-@import './styles/blocks/button/button--outlined';
-@import './styles/blocks/link/link';
-@import './styles/blocks/link/link__icon';
-@import './styles/blocks/logo/logo';
-@import './styles/blocks/navigation/navigation';
-@import './styles/blocks/typography/typography__roboto-font';
-@import './styles/blocks/typography/typography';
+@import '@/styles/blocks/application/application';
+@import '@/styles/blocks/application/application__header';
+@import '@/styles/blocks/application/application__content';
+@import '@/styles/blocks/application/application__footer';
+@import '@/styles/blocks/body/body';
+@import '@/styles/blocks/button/button';
+@import '@/styles/blocks/button/button__icon';
+@import '@/styles/blocks/button/button--primary';
+@import '@/styles/blocks/button/button--secondary';
+@import '@/styles/blocks/button/button--outlined';
+@import '@/styles/blocks/link/link';
+@import '@/styles/blocks/link/link__icon';
+@import '@/styles/blocks/loader/loader';
+@import '@/styles/blocks/logo/logo';
+@import '@/styles/blocks/navigation/navigation';
+@import '@/styles/blocks/typography/typography__roboto-font';
+@import '@/styles/blocks/typography/typography';
 </style>

@@ -1,6 +1,6 @@
 @mixin roboto-font($type, $weight, $style) {
   $font-family: 'Roboto';
-  $font-path: './assets/fonts/roboto';
+  $font-path: '~@/assets/fonts/roboto';
 
   @font-face {
       font-family: '#{$font-family}';
