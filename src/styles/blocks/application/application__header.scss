@@ -3,6 +3,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: $z-index__header;
   }
 
   &__header-top-bar {
@@ -46,5 +47,9 @@
       width: 1px;
       background: $color__primary--light;
     }
+  }
+
+  &__header-error-message {
+    width: 100%;
   }
 }

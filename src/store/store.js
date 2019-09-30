@@ -14,6 +14,14 @@ export default new Vuex.Store({
     error: null
   },
   getters: {
+    errorOccured(state) {
+      return !!state.error;
+    },
+    errorMessage(state) {
+      const error = state.error || '';
+
+      return error.message || error;
+    }
   },
   mutations: {
     showLoader(state) {

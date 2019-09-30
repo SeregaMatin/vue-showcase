@@ -11,6 +11,10 @@
     fill: currentColor;
     font-size: inherit;
     vertical-align: middle;
+
+    // Disable SVG-title wich will be shown on hover.
+    // Click-event and other pointer events will still be fired on wrapping .svg-icon block.
+    pointer-events: none;
   }
 
   &--size_xs {

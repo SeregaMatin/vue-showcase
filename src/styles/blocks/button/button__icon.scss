@@ -1,5 +1,7 @@
 .button {
   &__icon {
+    cursor: pointer;
+
     &--left-aligned {
       margin-right: $button__icon__margin;
     }

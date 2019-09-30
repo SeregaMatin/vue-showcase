@@ -13,7 +13,7 @@
         <a class="button application__header-button application__header-cart-button" role="button">
           Корзина покупок
           <svg-icon src="icomoon.svg#icon-cart" class="svg-icon--size_m button__icon button__icon--right-aligned">
-            <template v-if="cartIsNotEmpty" v-slot:badge>{{cartItemsCount}}</template>
+            <template v-if="cartIsNotEmpty" v-slot:badge>{{cartItemsTotalCount}}</template>
           </svg-icon>
         </a>
       </div>
@@ -32,6 +32,15 @@
           </router-link>
         </div>
       </div>
+      <transition name="fade">
+        <message-card
+          v-if="errorOccured"
+          class="message-card--error application__header-error-message"
+          v-on:close="hideError"
+        >
+          {{errorMessage}}
+        </message-card>
+      </transition>
     </div>
     <div class="application__content">
       <div class="application__content-container">
@@ -76,23 +85,33 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import MessageCard from '@/components/MessageCard.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
 export default {
   name: 'app',
   components: {
+    MessageCard,
     SvgIcon
   },
   computed: {
     ...mapState({
-      isLoading: state => state.isLoading,
-      error: state => state.error
+      isLoading: state => state.isLoading
     }),
-    ...mapGetters('cart', {
-      cartItemsCount: 'itemsCount'
+    ...mapGetters({
+      errorOccured: 'errorOccured',
+      errorMessage: 'errorMessage'
+    }),
+    ...mapState('cart', {
+      cartItemsTotalCount: state => state.itemsTotalCount
     }),
     cartIsNotEmpty() {
-      return this.cartItemsCount > 0;
+      return this.cartItemsTotalCount > 0;
+    }
+  },
+  methods: {
+    hideError() {
+      this.$store.commit('hideError');
     }
   }
 };
@@ -109,6 +128,8 @@ export default {
 @import '@/styles/blocks/navigation/variables';
 @import '@/styles/blocks/typography/variables';
 
+@import '@/styles/mixins/loader';
+
 @import '@/styles/blocks/application/application';
 @import '@/styles/blocks/application/application__header';
 @import '@/styles/blocks/application/application__content';
@@ -119,6 +140,8 @@ export default {
 @import '@/styles/blocks/button/button--primary';
 @import '@/styles/blocks/button/button--secondary';
 @import '@/styles/blocks/button/button--outlined';
+@import '@/styles/blocks/button/button--disabled';
+@import '@/styles/blocks/button/button--loading';
 @import '@/styles/blocks/link/link';
 @import '@/styles/blocks/link/link__icon';
 @import '@/styles/blocks/loader/loader';
@@ -126,4 +149,6 @@ export default {
 @import '@/styles/blocks/navigation/navigation';
 @import '@/styles/blocks/typography/typography__roboto-font';
 @import '@/styles/blocks/typography/typography';
+
+@import '@/styles/transitions/fade';
 </style>
