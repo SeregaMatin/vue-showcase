@@ -7,8 +7,12 @@
       <li v-for="product in showcaseProducts" v-bind:key="product.id">
         {{product.name}}: ${{product.price}}
         <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
-        <v-button class="button--secondary" v-on:click="addProductToCart(product)">
+        <v-button class="button--secondary" v-if="!hasProductInCart(product)" v-on:click="addProductToCart(product)">
           Добавить в корзину
+        </v-button>
+
+        <v-button class="button--secondary" v-if="hasProductInCart(product)" v-on:click="removeProductFromCart(product)">
+          Убрать из корзины
         </v-button>
       </li>
     </ul>
@@ -52,6 +56,15 @@ export default {
       return this.$store.dispatch('cart/addProduct', product).catch((error) => {
         this.$store.commit('showError', error);
       });
+    },
+    removeProductFromCart(product) {
+      return this.$store.dispatch('cart/removeProduct', product).catch((error) => {
+        this.$store.commit('showError', error);
+      });
+    },
+    hasProductInCart(product) {
+      const productInCartQuantity = this.$store.state.cart.items[product.id];
+      return productInCartQuantity > 0;
     }
   }
 };

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 import Showcase from './modules/showcase';
 import Cart from './modules/cart';
 
@@ -42,5 +43,8 @@ export default new Vuex.Store({
   modules: {
     showcase: Showcase,
     cart: Cart
-  }
+  },
+  plugins: [createPersistedState({
+    paths: ['cart']
+  })]
 });
