@@ -7,9 +7,9 @@
       <li v-for="product in showcaseProducts" v-bind:key="product.id">
         {{product.name}}: ${{product.price}}
         <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
-        <a class="button button--secondary" role="button" v-on:click="addProductToCart(product)">
+        <v-button class="button--secondary" v-on:click="addProductToCart(product)">
           Добавить в корзину
-        </a>
+        </v-button>
       </li>
     </ul>
     <div v-if="showcaseProducts">
@@ -20,10 +20,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import VButton from '@/components/VButton.vue';
 
 export default {
   name: 'home',
   components: {
+    VButton
   },
   data() {
     return {

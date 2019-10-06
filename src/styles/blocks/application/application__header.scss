@@ -37,18 +37,6 @@
     margin: auto 0 auto 0;
   }
 
-  &__header-cart-button {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 1px;
-      background: $color__primary--light;
-    }
-  }
-
   &__header-error-message {
     width: 100%;
   }

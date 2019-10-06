@@ -4,18 +4,19 @@
     </div>
     <div class="application__header">
       <div class="application__header-top-bar">
-        <a class="button application__header-button" href="https://github.com/SeregaMatin/vue-showcase">
+        <v-button class="application__header-button" href="https://github.com/SeregaMatin/vue-showcase">
           <svg-icon src="icomoon.svg#icon-github" class="svg-icon--size_m button__icon button__icon--left-aligned">
           </svg-icon>
           Страница проекта на GitHub
-        </a>
-
-        <a class="button application__header-button application__header-cart-button" role="button">
+        </v-button>
+        <v-button class="application__header-button">
           Корзина покупок
           <svg-icon src="icomoon.svg#icon-cart" class="svg-icon--size_m button__icon button__icon--right-aligned">
-            <template v-if="cartIsNotEmpty" v-slot:badge>{{cartItemsTotalCount}}</template>
+            <template v-if="cartIsNotEmpty" v-slot:badge>
+              {{cartItemsTotalCount}}
+            </template>
           </svg-icon>
-        </a>
+        </v-button>
       </div>
       <div class="application__header-bottom-bar">
         <router-link to="/" class="logo application__header-logo">
@@ -87,12 +88,14 @@
 import { mapState, mapGetters } from 'vuex';
 import MessageCard from '@/components/MessageCard.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
+import VButton from '@/components/VButton.vue';
 
 export default {
   name: 'app',
   components: {
     MessageCard,
-    SvgIcon
+    SvgIcon,
+    VButton
   },
   computed: {
     ...mapState({
@@ -121,7 +124,6 @@ export default {
 @import '@/styles/variables';
 @import '@/styles/blocks/application/variables';
 @import '@/styles/blocks/body/variables';
-@import '@/styles/blocks/button/variables';
 @import '@/styles/blocks/link/variables';
 @import '@/styles/blocks/loader/variables';
 @import '@/styles/blocks/logo/variables';
@@ -135,13 +137,6 @@ export default {
 @import '@/styles/blocks/application/application__content';
 @import '@/styles/blocks/application/application__footer';
 @import '@/styles/blocks/body/body';
-@import '@/styles/blocks/button/button';
-@import '@/styles/blocks/button/button__icon';
-@import '@/styles/blocks/button/button--primary';
-@import '@/styles/blocks/button/button--secondary';
-@import '@/styles/blocks/button/button--outlined';
-@import '@/styles/blocks/button/button--disabled';
-@import '@/styles/blocks/button/button--loading';
 @import '@/styles/blocks/link/link';
 @import '@/styles/blocks/link/link__icon';
 @import '@/styles/blocks/loader/loader';
