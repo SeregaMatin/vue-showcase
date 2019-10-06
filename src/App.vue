@@ -34,13 +34,13 @@
         </div>
       </div>
       <transition name="fade">
-        <message-card
+        <v-message
           v-if="errorOccured"
-          class="message-card--error application__header-error-message"
+          class="message--error application__header-error-message"
           v-on:close="hideError"
         >
           {{errorMessage}}
-        </message-card>
+        </v-message>
       </transition>
     </div>
     <div class="application__content">
@@ -86,16 +86,16 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import MessageCard from '@/components/MessageCard.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
+import VMessage from '@/components/VMessage.vue';
 
 export default {
   name: 'app',
   components: {
-    MessageCard,
     SvgIcon,
-    VButton
+    VButton,
+    VMessage
   },
   computed: {
     ...mapState({
