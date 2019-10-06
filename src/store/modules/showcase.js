@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import db from '@/api/db';
 
 const getRandomInt = function getRandomInt(min, max) {
@@ -21,13 +22,17 @@ const getRandomArrayItems = function getRandomArrayItems(array, count) {
 export default {
   namespaced: true,
   state: {
-    products: null
+    products: null,
+    cache: {}
   },
   getters: {
   },
   mutations: {
     setProducts(state, products) {
       state.products = products;
+    },
+    setProduct(state, product) {
+      Vue.set(state.cache, product.id, product);
     }
   },
   actions: {
@@ -41,6 +46,19 @@ export default {
         // Take from 1 to 10 random products.
         const randomProducts = getRandomArrayItems(products, getRandomInt(1, 10));
         commit('setProducts', randomProducts);
+      });
+    },
+    getProduct({ state, commit }, productId) {
+      // Don't load product twice.
+      const cachedProduct = state.cache[productId];
+      if (cachedProduct) {
+        return cachedProduct;
+      }
+
+      return db.getProduct(productId).then((product) => {
+        commit('setProduct', product);
+
+        return product;
       });
     }
   }

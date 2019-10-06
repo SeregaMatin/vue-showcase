@@ -21,5 +21,8 @@ export default new Router({
     path: '*',
     name: '404',
     component: () => import('./views/404.vue')
-  }]
+  }],
+  scrollBehavior(to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  }
 });

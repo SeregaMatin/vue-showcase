@@ -1,16 +1,17 @@
 <template>
-  <div class="showcase">
+  <div class="showcase-view">
     <h1 class="typography typography--headline1">
       Витрина товаров
     </h1>
-    <ul v-if="showcaseProducts">
-      <li v-for="product in showcaseProducts" v-bind:key="product.id">
-        {{product.name}}: ${{product.price}}
-        <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
+    <ul class="showcase" v-if="showcaseProducts">
+      <li v-for="product in showcaseProducts" v-bind:key="product.id" style="padding: 20px 0;">
+        <router-link class="showcase__product" v-bind:to="{ name: 'product', params: { id: product.id, product: product }}">
+          {{product.name}}: {{product.price}} &#8381;
+          <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
+        </router-link>
         <v-button class="button--secondary" v-if="!hasProductInCart(product)" v-on:click="addProductToCart(product)">
           Добавить в корзину
         </v-button>
-
         <v-button class="button--secondary" v-if="hasProductInCart(product)" v-on:click="removeProductFromCart(product)">
           Убрать из корзины
         </v-button>

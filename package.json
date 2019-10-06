@@ -41,7 +41,8 @@
     "rules": {
       "max-len": ["error", { "code": 160 }],
       "comma-dangle": ["error", "never"],
-      "no-unused-vars": ["error", { "args": "none" }]
+      "no-unused-vars": ["error", { "args": "none" }],
+      "no-param-reassign": ["error", { "props": false }]
     },
     "parserOptions": {
       "parser": "babel-eslint"
