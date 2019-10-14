@@ -3,6 +3,17 @@ import Vuex from 'vuex';
 import createPersistedState from 'vuex-persistedstate';
 import Showcase from './modules/showcase';
 import Cart from './modules/cart';
+import { version } from '../../package.json';
+
+const resetPersistedState = function resetPersistedState() {
+  // Reset persisted state if application version has been changed.
+  // Otherwise we can get invalid data if something changed in state's format,
+  // but user's persisted state in localStorage still has an old format.
+  if (localStorage.getItem('version') !== version) {
+    localStorage.clear();
+    localStorage.setItem('version', version);
+  }
+};
 
 Vue.use(Vuex);
 
@@ -44,7 +55,8 @@ export default new Vuex.Store({
     showcase: Showcase,
     cart: Cart
   },
-  plugins: [createPersistedState({
-    paths: ['cart']
-  })]
+  plugins: [
+    resetPersistedState,
+    createPersistedState({ paths: ['cart'] })
+  ]
 });
