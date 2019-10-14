@@ -3,8 +3,8 @@
     <h1 class="typography typography--headline1">
       Витрина товаров
     </h1>
-    <ul class="showcase" v-if="showcaseProducts">
-      <li v-for="product in showcaseProducts" v-bind:key="product.id" style="padding: 20px 0;">
+    <ul class="showcase" v-if="products">
+      <li v-for="product in products" v-bind:key="product.id" style="padding: 20px 0;">
         <router-link class="showcase__product" v-bind:to="{ name: 'product', params: { id: product.id, product: product }}">
           {{product.name}}: {{product.price}} &#8381;
           <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
@@ -17,15 +17,26 @@
         </v-button>
       </li>
     </ul>
-    <div v-if="showcaseProducts">
-      Количество товаров: {{showcaseProducts.length}}
+    <div v-if="products">
+      Количество товаров: {{products.length}}
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { getRandomInt } from '@/utils/utils';
+import store from '@/store/store';
 import VButton from '@/components/VButton.vue';
+
+const getRandomProducts = function getProduct(count) {
+  store.commit('showLoader');
+
+  return store.dispatch('showcase/getRandomProducts', count).catch((error) => {
+    store.commit('showError', error);
+  }).finally(() => {
+    store.commit('hideLoader');
+  });
+};
 
 export default {
   name: 'home',
@@ -34,25 +45,25 @@ export default {
   },
   data() {
     return {
-      publicPath: process.env.BASE_URL
+      publicPath: process.env.BASE_URL,
+      products: {}
     };
   },
-  computed: mapState({
-    showcaseProducts: state => state.showcase.products
-  }),
-  created() {
-    this.loadProducts();
+  beforeRouteEnter(to, from, next) {
+    const randomProductsCount = getRandomInt(1, 10);
+
+    getRandomProducts(randomProductsCount).then((randomProducts) => {
+      // Initialize component's 'products' data property and continue transition.
+      next((vm) => { vm.products = randomProducts; });
+    }).catch((error) => {
+      // Abort transition.
+      next(false);
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.$options.beforeRouteEnter(to, from, next);
   },
   methods: {
-    loadProducts() {
-      this.$store.commit('showLoader');
-
-      return this.$store.dispatch('showcase/getProducts').catch((error) => {
-        this.$store.commit('showError', error);
-      }).finally(() => {
-        this.$store.commit('hideLoader');
-      });
-    },
     addProductToCart(product) {
       return this.$store.dispatch('cart/addProduct', product).catch((error) => {
         this.$store.commit('showError', error);
@@ -64,8 +75,7 @@ export default {
       });
     },
     hasProductInCart(product) {
-      const productInCartQuantity = this.$store.state.cart.items[product.id];
-      return productInCartQuantity > 0;
+      return this.$store.getters['cart/hasProduct'](product);
     }
   }
 };

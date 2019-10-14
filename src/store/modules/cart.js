@@ -10,29 +10,40 @@ export default {
     itemsTotalPrice: 0
   },
   getters: {
+    hasProduct: state => (product) => {
+      const item = state.items[product.id];
+
+      return item && item.quantity > 0;
+    }
   },
   mutations: {
     addProduct(state, product) {
-      Vue.set(state.items, product.id, 1);
+      const item = { product, quantity: 1 };
+
+      Vue.set(state.items, product.id, item);
       state.itemsTotalCount += 1;
       state.itemsTotalPrice += product.price;
     },
     incrementProductQuantity(state, product) {
-      state.items[product.id] += 1;
+      const item = state.items[product.id];
+
+      item.quantity += 1;
       state.itemsTotalCount += 1;
       state.itemsTotalPrice += product.price;
     },
     decrementProductQuantity(state, product) {
-      state.items[product.id] -= 1;
+      const item = state.items[product.id];
+
+      item.quantity -= 1;
       state.itemsTotalCount -= 1;
       state.itemsTotalPrice -= product.price;
     },
     removeProduct(state, product) {
-      const productQuantity = state.items[product.id];
+      const item = state.items[product.id];
 
       Vue.delete(state.items, product.id);
-      state.itemsTotalCount -= productQuantity;
-      state.itemsTotalPrice -= productQuantity * product.price;
+      state.itemsTotalCount -= item.quantity;
+      state.itemsTotalPrice -= item.quantity * product.price;
     }
   },
   actions: {
@@ -48,7 +59,7 @@ export default {
     },
     decrementProductQuantity({ commit }, product) {
       return db.decrementProductQuantityInCart(product).then((decrementedProduct) => {
-        commit('incrementProductQuantity', decrementedProduct);
+        commit('decrementProductQuantity', decrementedProduct);
       });
     },
     removeProduct({ commit }, product) {
