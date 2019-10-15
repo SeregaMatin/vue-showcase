@@ -1,0 +1,9 @@
+.showcase {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 34px;
+  margin-right: -$showcase__product__margin;
+  margin-bottom: 34px;
+  margin-left: -$showcase__product__margin;
+}

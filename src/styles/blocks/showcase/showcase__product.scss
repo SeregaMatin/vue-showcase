@@ -1,0 +1,77 @@
+.showcase {
+
+  // Default markup is three columns wide flexbox.
+  &__product {
+    display: block;
+    position: relative;
+    margin: $showcase__product__margin;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    flex: calc(100% / 3 - 2 * #{$showcase__product__margin});
+    height: $showcase__product__height;
+
+    &--no-products {
+    }
+
+    &:hover {
+      .showcase__product-name {
+        color: $color__secondary;
+      }
+    }
+  }
+
+  // On screens with width less or equal 900px, markup changes into two columns wide flexbox.
+  @media screen and (max-width: 900px) {
+    &__product {
+      flex: calc(100% / 2 - 2 * #{$showcase__product__margin});
+    }
+  }
+
+  // Finally on screens with width less or equal 600px, markup changes into single column flexbox.
+  @media screen and (max-width: 600px) {
+    &__product {
+      flex: calc(100% - 2 * 16px);
+    }
+  }
+
+  &__product-link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  &__product-cart-button {
+  }
+
+  &__product-image {
+    display: block;
+    width: 100%;
+    height: $showcase__product__height * 2 / 3;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 3px;
+  }
+
+  &__product-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 81px;
+    font-size: 19px;
+    line-height: 27px;
+    color: $color__on-background;
+  }
+
+  &__product-price {
+    position: absolute;
+    bottom: 0;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: $color__secondary;
+  }
+}

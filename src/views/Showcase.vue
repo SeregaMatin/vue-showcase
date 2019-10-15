@@ -3,28 +3,44 @@
     <h1 class="typography typography--headline1">
       Витрина товаров
     </h1>
-    <ul class="showcase" v-if="products">
-      <li v-for="product in products" v-bind:key="product.id" style="padding: 20px 0;">
-        <router-link class="showcase__product" v-bind:to="{ name: 'product', params: { id: product.id, product: product }}">
-          {{product.name}}: {{product.price}} &#8381;
-          <img v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" style="max-width: 200px;">
+    <div class="showcase">
+      <div v-for="product in products" v-bind:key="product.id" class="showcase__product">
+        <router-link
+          v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
+          class="link showcase__product-link"
+        >
+          <img class="showcase__product-image" v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" v-bind:alt="product.name">
+          <div class="showcase__product-name">
+            {{product.name}}
+          </div>
+          <div class="showcase__product-price">
+            {{product.price}} &#8381;
+          </div>
         </router-link>
-        <v-button class="button--secondary" v-if="!hasProductInCart(product)" v-on:click="addProductToCart(product)">
-          Добавить в корзину
-        </v-button>
-        <v-button class="button--secondary" v-if="hasProductInCart(product)" v-on:click="removeProductFromCart(product)">
+        <v-button
+          v-if="hasProductInCart(product)"
+          v-on:click="removeProductFromCart(product)"
+          class="showcase__product-cart-button button--secondary"
+        >
           Убрать из корзины
         </v-button>
-      </li>
-    </ul>
-    <div v-if="products">
-      Количество товаров: {{products.length}}
+        <v-button
+          v-else
+          v-on:click="addProductToCart(product)"
+          class="showcase__product-cart-button button--secondary"
+        >
+          Добавить в корзину
+        </v-button>
+      </div>
+      <div v-if="!hasProducts" class="showcase__product showcase__product--no-products">
+        Ни один товар еще не был опубликован
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { getRandomInt } from '@/utils/utils';
+import { getRandomInt, isEmptyObject } from '@/utils/utils';
 import store from '@/store/store';
 import VButton from '@/components/VButton.vue';
 
@@ -63,6 +79,11 @@ export default {
   beforeRouteUpdate(to, from, next) {
     this.$options.beforeRouteEnter(to, from, next);
   },
+  computed: {
+    hasProducts() {
+      return !isEmptyObject(this.products);
+    }
+  },
   methods: {
     addProductToCart(product) {
       return this.$store.dispatch('cart/addProduct', product).catch((error) => {
@@ -80,3 +101,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/blocks/showcase/variables';
+
+@import '@/styles/blocks/showcase/showcase';
+@import '@/styles/blocks/showcase/showcase__product';
+</style>

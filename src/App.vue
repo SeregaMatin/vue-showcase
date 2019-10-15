@@ -12,7 +12,7 @@
         <v-button class="application__header-button">
           Корзина покупок
           <svg-icon src="icomoon.svg#icon-cart" class="svg-icon--size_m button__icon button__icon--right-aligned">
-            <template v-if="cartIsNotEmpty" v-slot:badge>
+            <template v-if="!cartIsEmpty" v-slot:badge>
               {{cartItemsTotalCount}}
             </template>
           </svg-icon>
@@ -108,9 +108,9 @@ export default {
     ...mapState('cart', {
       cartItemsTotalCount: state => state.itemsTotalCount
     }),
-    cartIsNotEmpty() {
-      return this.cartItemsTotalCount > 0;
-    }
+    ...mapGetters('cart', {
+      cartIsEmpty: 'isEmpty'
+    })
   },
   methods: {
     hideError() {

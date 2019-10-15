@@ -10,6 +10,9 @@ export default {
     itemsTotalPrice: 0
   },
   getters: {
+    isEmpty(state) {
+      return state.itemsTotalCount === 0;
+    },
     hasProduct: state => (product) => {
       const item = state.items[product.id];
 
