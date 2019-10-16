@@ -71,3 +71,10 @@ export const objectToArray = function objectToArray(object) {
 
   return Object.values(object);
 };
+
+export const formatNumber = function formatNumber({ number, thousandsSeparator = ',' }) {
+  const numberParts = `${number}`.split('.');
+  numberParts[0] = numberParts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
+
+  return numberParts.join('.');
+};

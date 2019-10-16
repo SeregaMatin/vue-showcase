@@ -1,15 +1,26 @@
 import Vue from 'vue';
 import db from '@/api/db';
-import { arrayToObject, isEmptyObject, getRandomObjectItems } from '@/utils/utils';
+import {
+  arrayToObject,
+  isEmptyObject,
+  getRandomObjectItems,
+  formatNumber
+} from '@/utils/utils';
 
 export default {
   namespaced: true,
   state: {
-    products: {}
+    products: {},
+    productsAlreadyLoaded: false
   },
   getters: {
     hasProducts(state) {
       return !isEmptyObject(state.products);
+    },
+    productFormattedPrice: state => (product) => {
+      const options = { number: product.price, thousandsSeparator: ' ' };
+
+      return formatNumber(options);
     }
   },
   mutations: {
@@ -18,18 +29,22 @@ export default {
     },
     setProduct(state, product) {
       Vue.set(state.products, product.id, product);
-    }
+    },
+    setProductsAlreadyLoaded(state, productsAlreadyLoaded) {
+      state.productsAlreadyLoaded = productsAlreadyLoaded;
+    },
   },
   actions: {
-    getProducts({ state, commit, getters }) {
+    getProducts({ state, commit }) {
       // Don't load products twice.
-      if (getters.hasProducts) {
+      if (state.productsAlreadyLoaded) {
         return state.products;
       }
 
       return db.getProducts().then((productsArray) => {
         const products = arrayToObject(productsArray, 'id');
         commit('setProducts', products);
+        commit('setProductsAlreadyLoaded', true);
 
         return products;
       });

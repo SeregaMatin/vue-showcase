@@ -14,22 +14,22 @@
             {{product.name}}
           </div>
           <div class="showcase__product-price">
-            {{product.price}} &#8381;
+            {{getProductFormattedPrice(product)}} &#8381;
           </div>
         </router-link>
         <v-button
           v-if="hasProductInCart(product)"
           v-on:click="removeProductFromCart(product)"
-          class="showcase__product-cart-button button--secondary"
+          class="showcase__product-cart-button button--bezel-less"
         >
-          Убрать из корзины
+          <svg-icon src="icomoon.svg#icon-remove-from-cart" class="svg-icon--size_m button__icon" />
         </v-button>
         <v-button
           v-else
           v-on:click="addProductToCart(product)"
-          class="showcase__product-cart-button button--secondary"
+          class="showcase__product-cart-button button--bezel-less"
         >
-          Добавить в корзину
+          <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon" />
         </v-button>
       </div>
       <div v-if="!hasProducts" class="showcase__product showcase__product--no-products">
@@ -42,6 +42,7 @@
 <script>
 import { getRandomInt, isEmptyObject } from '@/utils/utils';
 import store from '@/store/store';
+import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 
 const getRandomProducts = function getProduct(count) {
@@ -57,6 +58,7 @@ const getRandomProducts = function getProduct(count) {
 export default {
   name: 'home',
   components: {
+    SvgIcon,
     VButton
   },
   data() {
@@ -97,6 +99,9 @@ export default {
     },
     hasProductInCart(product) {
       return this.$store.getters['cart/hasProduct'](product);
+    },
+    getProductFormattedPrice(product) {
+      return this.$store.getters['showcase/productFormattedPrice'](product);
     }
   }
 };

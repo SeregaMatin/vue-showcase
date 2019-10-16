@@ -1,0 +1,14 @@
+.button {
+  &--bezel-less {
+    color: $color__secondary;
+    transition: color 0.3s;
+
+    &:hover {
+      color: $color__secondary--light;
+    }
+  }
+
+  &--bezel-less#{&}--disabled {
+    color: $color__secondary--light;
+  }
+}

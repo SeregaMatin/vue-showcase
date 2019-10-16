@@ -3,7 +3,7 @@
     <h1 class="typography typography--headline1">
       {{product.name}}
     </h1>
-    {{product.price}}
+    {{getProductFormattedPrice(product)}} &#8381;
     <br>
     {{product.description}}
     <br>
@@ -50,6 +50,11 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.$options.beforeRouteEnter(to, from, next);
+  },
+  methods: {
+    getProductFormattedPrice(product) {
+      return this.$store.getters['showcase/productFormattedPrice'](product);
+    }
   }
 };
 </script>

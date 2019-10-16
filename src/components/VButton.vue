@@ -62,6 +62,7 @@ export default {
 
 @import '@/styles/blocks/button/button';
 @import '@/styles/blocks/button/button__icon';
+@import '@/styles/blocks/button/button--bezel-less';
 @import '@/styles/blocks/button/button--primary';
 @import '@/styles/blocks/button/button--secondary';
 @import '@/styles/blocks/button/button--outlined';
