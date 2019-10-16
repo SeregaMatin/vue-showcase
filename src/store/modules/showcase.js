@@ -32,7 +32,7 @@ export default {
     },
     setProductsAlreadyLoaded(state, productsAlreadyLoaded) {
       state.productsAlreadyLoaded = productsAlreadyLoaded;
-    },
+    }
   },
   actions: {
     getProducts({ state, commit }) {

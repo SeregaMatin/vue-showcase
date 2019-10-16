@@ -3,7 +3,7 @@
     <h1 class="typography typography--headline1">
       Витрина товаров
     </h1>
-    <div class="showcase">
+    <div v-if="productsCount > 0 && productsCount <= 3" class="showcase">
       <div v-for="product in products" v-bind:key="product.id" class="showcase__product">
         <router-link
           v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
@@ -32,7 +32,45 @@
           <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon" />
         </v-button>
       </div>
-      <div v-if="!hasProducts" class="showcase__product showcase__product--no-products">
+    </div>
+    <carousel
+      v-else-if="productsCount > 3"
+      v-bind:perPage="3"
+      v-bind:navigationEnabled="true"
+      v-bind:paginationEnabled="false"
+      class="showcase showcase--carousel"
+    >
+      <slide v-for="product in products" v-bind:key="product.id" class="showcase__product showcase__product--slide">
+        <router-link
+          v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
+          class="link showcase__product-link"
+        >
+          <img class="showcase__product-image" v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" v-bind:alt="product.name">
+          <div class="showcase__product-name">
+            {{product.name}}
+          </div>
+          <div class="showcase__product-price">
+            {{getProductFormattedPrice(product)}} &#8381;
+          </div>
+        </router-link>
+        <v-button
+          v-if="hasProductInCart(product)"
+          v-on:click="removeProductFromCart(product)"
+          class="showcase__product-cart-button button--bezel-less"
+        >
+          <svg-icon src="icomoon.svg#icon-remove-from-cart" class="svg-icon--size_m button__icon" />
+        </v-button>
+        <v-button
+          v-else
+          v-on:click="addProductToCart(product)"
+          class="showcase__product-cart-button button--bezel-less"
+        >
+          <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon" />
+        </v-button>
+      </slide>
+    </carousel>
+    <div v-else class="showcase">
+      <div class="showcase__product showcase__product--no-products">
         Ни один товар еще не был опубликован
       </div>
     </div>
@@ -40,7 +78,8 @@
 </template>
 
 <script>
-import { getRandomInt, isEmptyObject } from '@/utils/utils';
+import { Carousel, Slide } from 'vue-carousel';
+import { getRandomInt } from '@/utils/utils';
 import store from '@/store/store';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
@@ -59,7 +98,9 @@ export default {
   name: 'home',
   components: {
     SvgIcon,
-    VButton
+    VButton,
+    Carousel,
+    Slide
   },
   data() {
     return {
@@ -82,8 +123,8 @@ export default {
     this.$options.beforeRouteEnter(to, from, next);
   },
   computed: {
-    hasProducts() {
-      return !isEmptyObject(this.products);
+    productsCount() {
+      return Object.keys(this.products).length;
     }
   },
   methods: {

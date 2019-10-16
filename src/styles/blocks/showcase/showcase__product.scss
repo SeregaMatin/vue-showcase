@@ -77,4 +77,9 @@
     text-transform: uppercase;
     color: $color__secondary;
   }
+
+  &__product--slide {
+    flex: none;
+    width: calc(100% / 3 - 2 * #{$showcase__product__margin});
+  }
 }

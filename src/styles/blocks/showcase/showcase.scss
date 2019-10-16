@@ -6,4 +6,26 @@
   margin-right: -$showcase__product__margin;
   margin-bottom: 34px;
   margin-left: -$showcase__product__margin;
+
+  &--carousel {
+    flex-direction: column;
+    margin: 0;
+    flex-wrap: unset;
+
+    // Here we are forced to deviate from the BEM methodology.
+    // Carousel is an external component, and we haven't access to it's inner markup.
+    // So we can't customize it other than that way.
+    .VueCarousel-navigation-button {
+      color: $color__secondary;
+      transition: color 0.3s;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        color: $color__secondary--light;
+      }
+    }
+  }
 }
