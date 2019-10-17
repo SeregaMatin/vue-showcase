@@ -79,7 +79,12 @@
   }
 
   &__product--slide {
-    flex: none;
-    width: calc(100% / 3 - 2 * #{$showcase__product__margin});
+    // Here we are forced to deviate from the BEM methodology.
+    // Carousel is an external component, and we haven't access to it's inner markup.
+    // So we can't customize it other than that way.
+    &.VueCarousel-slide {
+      flex: none;
+      width: calc(100% / 3 - 2 * #{$showcase__product__margin});
+    }
   }
 }
