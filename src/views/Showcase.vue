@@ -38,8 +38,18 @@
       v-bind:perPage="3"
       v-bind:navigationEnabled="true"
       v-bind:paginationEnabled="false"
+      v-bind:scrollPerPage="false"
+      v-bind:loop="false"
       class="showcase showcase--carousel"
     >
+      <template v-slot:navigationPrevLabel>
+        <svg-icon src="icomoon.svg#icon-chevron-left" class="svg-icon--size_m">
+        </svg-icon>
+      </template>
+      <template v-slot:navigationNextLabel>
+        <svg-icon src="icomoon.svg#icon-chevron-right" class="svg-icon--size_m">
+        </svg-icon>
+      </template>
       <slide v-for="product in products" v-bind:key="product.id" class="showcase__product showcase__product--slide">
         <router-link
           v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
