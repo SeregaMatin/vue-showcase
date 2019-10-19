@@ -4,34 +4,7 @@
       Витрина товаров
     </h1>
     <div v-if="productsCount > 0 && productsCount <= 3" class="showcase">
-      <div v-for="product in products" v-bind:key="product.id" class="showcase__product">
-        <router-link
-          v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
-          class="link showcase__product-link"
-        >
-          <img class="showcase__product-image" v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" v-bind:alt="product.name">
-          <div class="showcase__product-name">
-            {{product.name}}
-          </div>
-          <div class="showcase__product-price">
-            {{getProductFormattedPrice(product)}} &#8381;
-          </div>
-        </router-link>
-        <v-button
-          v-if="hasProductInCart(product)"
-          v-on:click="removeProductFromCart(product)"
-          class="showcase__product-cart-button button--bezel-less"
-        >
-          <svg-icon src="icomoon.svg#icon-remove-from-cart" class="svg-icon--size_m button__icon" />
-        </v-button>
-        <v-button
-          v-else
-          v-on:click="addProductToCart(product)"
-          class="showcase__product-cart-button button--bezel-less"
-        >
-          <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon" />
-        </v-button>
-      </div>
+      <showcase-product v-for="product in products" v-bind:key="product.id" v-bind:product="product" class="showcase__product" />
     </div>
     <carousel
       v-else-if="productsCount > 3"
@@ -42,6 +15,9 @@
       v-bind:loop="false"
       class="showcase showcase--carousel"
     >
+      <slide v-for="product in products" v-bind:key="product.id">
+        <showcase-product v-bind:product="product" class="showcase__product--slide" />
+      </slide>
       <template v-slot:navigationPrevLabel>
         <svg-icon src="icomoon.svg#icon-chevron-left" class="svg-icon--size_m">
         </svg-icon>
@@ -50,38 +26,13 @@
         <svg-icon src="icomoon.svg#icon-chevron-right" class="svg-icon--size_m">
         </svg-icon>
       </template>
-      <slide v-for="product in products" v-bind:key="product.id" class="showcase__product showcase__product--slide">
-        <router-link
-          v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
-          class="link showcase__product-link"
-        >
-          <img class="showcase__product-image" v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" v-bind:alt="product.name">
-          <div class="showcase__product-name">
-            {{product.name}}
-          </div>
-          <div class="showcase__product-price">
-            {{getProductFormattedPrice(product)}} &#8381;
-          </div>
-        </router-link>
-        <v-button
-          v-if="hasProductInCart(product)"
-          v-on:click="removeProductFromCart(product)"
-          class="showcase__product-cart-button button--bezel-less"
-        >
-          <svg-icon src="icomoon.svg#icon-remove-from-cart" class="svg-icon--size_m button__icon" />
-        </v-button>
-        <v-button
-          v-else
-          v-on:click="addProductToCart(product)"
-          class="showcase__product-cart-button button--bezel-less"
-        >
-          <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon" />
-        </v-button>
-      </slide>
     </carousel>
     <div v-else class="showcase">
       <div class="showcase__product showcase__product--no-products">
-        Ни один товар еще не был опубликован
+        <img class="showcase__product-image" src="@/assets/images/blocks/showcase/no-products.png">
+        <div class="showcase__product-name">
+          К сожалению, на нашей витрине пока отсутствуют товары
+        </div>
       </div>
     </div>
   </div>
@@ -91,8 +42,8 @@
 import { Carousel, Slide } from 'vue-carousel';
 import { getRandomInt } from '@/utils/utils';
 import store from '@/store/store';
+import ShowcaseProduct from '@/components/ShowcaseProduct.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
-import VButton from '@/components/VButton.vue';
 
 const getRandomProducts = function getProduct(count) {
   store.commit('showLoader');
@@ -107,8 +58,8 @@ const getRandomProducts = function getProduct(count) {
 export default {
   name: 'home',
   components: {
+    ShowcaseProduct,
     SvgIcon,
-    VButton,
     Carousel,
     Slide
   },
@@ -135,24 +86,6 @@ export default {
   computed: {
     productsCount() {
       return Object.keys(this.products).length;
-    }
-  },
-  methods: {
-    addProductToCart(product) {
-      return this.$store.dispatch('cart/addProduct', product).catch((error) => {
-        this.$store.commit('showError', error);
-      });
-    },
-    removeProductFromCart(product) {
-      return this.$store.dispatch('cart/removeProduct', product).catch((error) => {
-        this.$store.commit('showError', error);
-      });
-    },
-    hasProductInCart(product) {
-      return this.$store.getters['cart/hasProduct'](product);
-    },
-    getProductFormattedPrice(product) {
-      return this.$store.getters['showcase/productFormattedPrice'](product);
     }
   }
 };
