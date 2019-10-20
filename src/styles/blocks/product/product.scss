@@ -15,7 +15,7 @@
         width: 100%;
         object-fit: contain;
         display: block;
-        margin: 0 auto;
+        max-height: $product__active-image-img__max-height / 4;
       }
 
       &:before {
