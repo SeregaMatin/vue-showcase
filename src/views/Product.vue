@@ -145,4 +145,6 @@ export default {
 @import '@/styles/blocks/product/variables';
 
 @import '@/styles/blocks/product/product';
+
+@import '@/styles/transitions/fade';
 </style>

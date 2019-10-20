@@ -7,9 +7,13 @@ export default {
     items: {
     },
     itemsTotalCount: 0,
-    itemsTotalPrice: 0
+    itemsTotalPrice: 0,
+    isVisible: false
   },
   getters: {
+    isVisible(state) {
+      return state.isVisible;
+    },
     isEmpty(state) {
       return state.itemsTotalCount === 0;
     },
@@ -20,6 +24,12 @@ export default {
     }
   },
   mutations: {
+    show(state) {
+      state.isVisible = true;
+    },
+    hide(state) {
+      state.isVisible = false;
+    },
     addProduct(state, product) {
       const item = { product, quantity: 1 };
 

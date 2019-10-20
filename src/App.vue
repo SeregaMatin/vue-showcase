@@ -1,7 +1,17 @@
 <template>
   <div id="app" class="application typography">
-    <div v-if="isLoading" class="loader">
-    </div>
+    <transition name="fade">
+      <div v-if="isLoading" class="loader application__loader">
+      </div>
+    </transition>
+    <transition name="fade">
+      <v-modal v-if="cartIsVisible" v-on:close="hideCart()" class="application__cart-modal">
+        <template v-slot:header>
+          Корзина покупок
+        </template>
+        <cart />
+      </v-modal>
+    </transition>
     <div class="application__header">
       <div class="application__header-top-bar">
         <v-button class="application__header-button" href="https://github.com/SeregaMatin/vue-showcase">
@@ -9,7 +19,7 @@
           </svg-icon>
           Страница проекта на GitHub
         </v-button>
-        <v-button class="application__header-button">
+        <v-button class="application__header-button" v-on:click="showCart()">
           Корзина покупок
           <svg-icon src="icomoon.svg#icon-cart" class="svg-icon--size_m button__icon button__icon--right-aligned">
             <template v-if="!cartIsEmpty" v-slot:badge>
@@ -86,16 +96,20 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import Cart from '@/components/Cart.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 import VMessage from '@/components/VMessage.vue';
+import VModal from '@/components/VModal.vue';
 
 export default {
   name: 'app',
   components: {
+    Cart,
     SvgIcon,
     VButton,
-    VMessage
+    VMessage,
+    VModal
   },
   computed: {
     ...mapState({
@@ -109,10 +123,17 @@ export default {
       cartItemsTotalCount: state => state.itemsTotalCount
     }),
     ...mapGetters('cart', {
+      cartIsVisible: 'isVisible',
       cartIsEmpty: 'isEmpty'
     })
   },
   methods: {
+    showCart() {
+      this.$store.commit('cart/show');
+    },
+    hideCart() {
+      this.$store.commit('cart/hide');
+    },
     hideError() {
       this.$store.commit('hideError');
     }
@@ -130,6 +151,7 @@ export default {
 @import '@/styles/blocks/navigation/variables';
 @import '@/styles/blocks/typography/variables';
 
+@import '@/styles/mixins/dimmer';
 @import '@/styles/mixins/loader';
 
 @import '@/styles/blocks/application/application';
