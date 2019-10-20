@@ -1,4 +1,14 @@
 $z-index__header: 9998;
 $height__header-top-bar: 60px;
 $height__header-navigation-bar: 88px;
+$height__header: $height__header-top-bar + $height__header-navigation-bar;
+
 $margin-top__content: 10px;
+$margin-bottom__content: 0px;
+
+$height__footer: 130px;
+
+$outer-height__header: $margin-top__content + $height__header;
+$outer-height__footer: $margin-bottom__content + $height__footer;
+
+$width__centered-container: 60%;

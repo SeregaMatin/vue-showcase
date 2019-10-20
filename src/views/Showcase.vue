@@ -56,7 +56,7 @@ const getRandomProducts = function getProduct(count) {
 };
 
 export default {
-  name: 'home',
+  name: 'showcase',
   components: {
     ShowcaseProduct,
     SvgIcon,

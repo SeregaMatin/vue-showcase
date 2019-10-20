@@ -1,21 +1,71 @@
 <template>
-  <div class="product">
+  <div class="product-view">
     <h1 class="typography typography--headline1">
       {{product.name}}
     </h1>
-    {{getProductFormattedPrice(product)}} &#8381;
-    <br>
-    {{product.description}}
-    <br>
-    <img
-      v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`"
-      v-bind:alt="product.name"
-    >
+    <div class="product">
+      <div class="product__images-list">
+        <div
+          v-for="productImage in product.images"
+          v-bind:key="productImage"
+          v-on:click="productActiveImage = productImage"
+          class="product__images-list-item"
+          v-bind:class="{ 'product__images-list-item--active': productActiveImage === productImage }"
+        >
+          <img
+            v-bind:src="getProductImagePath(product, productImage)"
+            v-bind:alt="`${product.name} - ${productImage}`"
+            class="product__images-list-item-img"
+          >
+        </div>
+      </div>
+      <div class="product__active-image">
+        <transition name="fade">
+          <img
+            v-bind:key="productActiveImage"
+            v-bind:src="getProductImagePath(product, productActiveImage)"
+            v-bind:alt="`${product.name} - ${productActiveImage}`"
+            class="product__active-image-img"
+          >
+        </transition>
+      </div>
+      <div class="product__summary">
+        <div class="product__purchasing">
+          <div class="product__purchasing-price">
+            {{getProductFormattedPrice(product)}} &#8381;
+          </div>
+          <v-button
+            v-if="hasProductInCart(product)"
+            v-on:click="removeProductFromCart(product)"
+            class="product__purchasing-cart-button button--secondary"
+          >
+            <svg-icon src="icomoon.svg#icon-remove-from-cart" class="svg-icon--size_m button__icon button__icon--left-aligned" />
+            Убрать из корзины
+          </v-button>
+          <v-button
+            v-else
+            v-on:click="addProductToCart(product)"
+            class="product__purchasing-cart-button button--secondary"
+          >
+            <svg-icon src="icomoon.svg#icon-add-to-cart" class="svg-icon--size_m button__icon button__icon--left-aligned" />
+            Добавить в корзину
+          </v-button>
+        </div>
+        <div class="product__description">
+          <div class="product__description-header">
+            Описание
+          </div>
+          {{product.description}}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import store from '@/store/store';
+import SvgIcon from '@/components/SvgIcon.vue';
+import VButton from '@/components/VButton.vue';
 
 const getProduct = function getProduct({ id: productId, product }) {
   if (product) {
@@ -33,16 +83,27 @@ const getProduct = function getProduct({ id: productId, product }) {
 
 export default {
   name: 'product',
+  components: {
+    SvgIcon,
+    VButton
+  },
   data() {
     return {
       publicPath: process.env.BASE_URL,
-      product: {}
+      product: null,
+      productActiveImage: null
     };
   },
   beforeRouteEnter(to, from, next) {
     getProduct(to.params).then((product) => {
       // Initialize component's 'product' data property and continue transition.
-      next((vm) => { vm.product = product; });
+      next((vm) => {
+        vm.product = product;
+
+        vm.productActiveImage = Array.isArray(product.images) && product.images.length > 0
+          ? product.images[0]
+          : null;
+      });
     }).catch((error) => {
       // Abort transition.
       next(false);
@@ -52,9 +113,33 @@ export default {
     this.$options.beforeRouteEnter(to, from, next);
   },
   methods: {
+    addProductToCart(product) {
+      return this.$store.dispatch('cart/addProduct', product).catch((error) => {
+        this.$store.commit('showError', error);
+      });
+    },
+    removeProductFromCart(product) {
+      return this.$store.dispatch('cart/removeProduct', product).catch((error) => {
+        this.$store.commit('showError', error);
+      });
+    },
+    hasProductInCart(product) {
+      return this.$store.getters['cart/hasProduct'](product);
+    },
     getProductFormattedPrice(product) {
       return this.$store.getters['showcase/productFormattedPrice'](product);
+    },
+    getProductImagePath(product, productImage) {
+      return this.$store.getters['showcase/productImagePath'](product, productImage);
     }
   }
 };
 </script>
+
+<style lang="scss">
+@import '@/styles/variables';
+@import '@/styles/blocks/typography/variables';
+@import '@/styles/blocks/product/variables';
+
+@import '@/styles/blocks/product/product';
+</style>

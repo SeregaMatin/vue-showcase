@@ -4,7 +4,7 @@
       v-bind:to="{ name: 'product', params: { id: product.id, product: product }}"
       class="link showcase__product-link"
     >
-      <img class="showcase__product-image" v-bind:src="`${publicPath}data/products/${product.id}/${product.cover}`" v-bind:alt="product.name">
+      <img class="showcase__product-image" v-bind:src="getProductImagePath(product, product.cover)" v-bind:alt="product.name">
       <div class="showcase__product-name">
         {{product.name}}
       </div>
@@ -66,6 +66,9 @@ export default {
     },
     getProductFormattedPrice(product) {
       return this.$store.getters['showcase/productFormattedPrice'](product);
+    },
+    getProductImagePath(product, productImage) {
+      return this.$store.getters['showcase/productImagePath'](product, productImage);
     }
   }
 };
@@ -76,4 +79,6 @@ export default {
 @import '@/styles/blocks/showcase/variables';
 
 @import '@/styles/blocks/showcase/showcase__product';
+
+@import '@/styles/transitions/fade';
 </style>

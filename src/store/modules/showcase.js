@@ -21,6 +21,11 @@ export default {
       const options = { number: product.price, thousandsSeparator: ' ' };
 
       return formatNumber(options);
+    },
+    productImagePath: state => (product, productImage) => {
+      const publicPath = process.env.BASE_URL;
+
+      return `${publicPath}data/products/${product.id}/${productImage}`;
     }
   },
   mutations: {

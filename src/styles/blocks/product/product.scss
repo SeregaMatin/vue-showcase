@@ -1,0 +1,99 @@
+.product {
+  display: flex;
+  flex-direction: row;
+
+  &__images-list {
+    flex: 10%;
+
+    &-item {
+      position: relative;
+      cursor: pointer;
+      margin-bottom: 16px;
+
+      &-img {
+        position: relative;
+        width: 100%;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        border: $product__images-list-item__border-width solid transparent;
+        border-radius: 4px;
+        top: -$product__images-list-item__border-width - 1px;
+        bottom: -$product__images-list-item__border-width - 1px;
+        left: -$product__images-list-item__border-width - 1px;
+        right: -$product__images-list-item__border-width - 1px;
+        transition: border-color 0.3s;
+      }
+
+      &:hover {
+        &:before {
+          border-color: $color__neutral;
+        }
+      }
+
+      &--active {
+        &:before {
+          border-color: $color__secondary;
+        }
+
+        &:hover {
+          &:before {
+            border-color: $color__secondary--pale;
+          }
+        }
+      }
+    }
+  }
+
+  &__active-image {
+    flex: 45%;
+    margin: 0 16px;
+    position: relative;
+
+    &-img {
+      // Here absolute positioning is necessary for img transitions, otherwise img will jump while trasition is running.
+      position: absolute;
+      width: 100%;
+      object-fit: contain;
+      max-height: $product__active-image-img__max-height;
+    }
+  }
+
+  &__summary {
+    flex: 45%;
+  }
+
+  &__purchasing {
+    display: flex;
+
+    &-price {
+      display: flex;
+      align-items: center;
+      color: $color__secondary;
+      text-transform: uppercase;
+      font-size: 2 * $typography__font-size;
+      font-weight: 700;
+
+      flex: 50%;
+    }
+
+    &-cart-button {
+      flex: 50%;
+    }
+  }
+
+  &__description {
+    &-header {
+      font-size: 1.5 * $typography__font-size;
+      font-weight: 500;
+      margin: 16px 0 20px 0;
+    }
+
+    text-align: justify;
+  }
+}
