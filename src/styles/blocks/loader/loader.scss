@@ -1,13 +1,5 @@
 .loader {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba($color__background, 0.7);
-  z-index: $z-index__header + 1;
-  pointer-events: none;
+  @include dimmer();
 
   &:after {
     @include loader($loader__size);
