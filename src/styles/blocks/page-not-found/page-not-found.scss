@@ -1,0 +1,16 @@
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+
+  &__image {
+    height: 270px;
+    margin-bottom: 15px;
+    object-fit: contain;
+  }
+
+  &__message{
+    text-align: center;
+    font-size: 19px;
+    line-height: 27px;
+  }
+}

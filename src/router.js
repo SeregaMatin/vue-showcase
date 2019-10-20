@@ -19,8 +19,8 @@ export default new Router({
     component: () => import('./views/Product.vue')
   }, {
     path: '*',
-    name: '404',
-    component: () => import('./views/404.vue')
+    name: 'pageNotFound',
+    component: () => import('./views/PageNotFound.vue')
   }],
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };

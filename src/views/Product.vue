@@ -1,5 +1,5 @@
 <template>
-  <div class="product-view">
+  <div v-if="product" class="product-view">
     <h1 class="typography typography--headline1">
       {{product.name}}
     </h1>
@@ -60,10 +60,12 @@
       </div>
     </div>
   </div>
+  <page-not-found v-else />
 </template>
 
 <script>
 import store from '@/store/store';
+import PageNotFound from '@/views/PageNotFound.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 
@@ -84,6 +86,7 @@ const getProduct = function getProduct({ id: productId, product }) {
 export default {
   name: 'product',
   components: {
+    PageNotFound,
     SvgIcon,
     VButton
   },
