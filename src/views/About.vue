@@ -105,7 +105,11 @@
 
       Приложение реализовано на single-page framework-е <a class="link" href="https://vuejs.org/">Vue.js</a>.
       <br>
-      И свёрстано под разрешение 1280x800 (адаптивная вёрстка не требовалась).
+      Работа с состоянием реализована через <a class="link" href="https://vuex.vuejs.org/">Vuex</a> - это реализация
+      <a class="link" href="https://www.freecodecamp.org/news/an-introduction-to-the-flux-architectural-pattern-674ea74775c9/">Flux</a>
+      для <a class="link" href="https://vuejs.org/">Vue.js</a>.
+      <br>
+      Приложение свёрстано под разрешение 1280x800 (адаптивная вёрстка не требовалась).
     </div>
   </div>
 </template>
