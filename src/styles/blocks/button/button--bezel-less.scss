@@ -1,5 +1,6 @@
 .button {
   &--bezel-less {
+    padding: 0;
     color: $color__secondary;
     transition: color 0.3s;
 

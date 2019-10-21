@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { isEmptyObject } from '@/utils/utils';
+import { formatPrice, isEmptyObject } from '@/utils/utils';
 import store from '@/store/store';
 import NotFound from '@/components/NotFound.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
@@ -143,11 +143,11 @@ export default {
     hasProductInCart(product) {
       return this.$store.getters['cart/hasProduct'](product);
     },
-    getProductFormattedPrice(product) {
-      return this.$store.getters['showcase/productFormattedPrice'](product);
-    },
     getProductImagePath(product, productImage) {
       return this.$store.getters['showcase/productImagePath'](product, productImage);
+    },
+    getProductFormattedPrice(product) {
+      return formatPrice(product.price);
     }
   }
 };

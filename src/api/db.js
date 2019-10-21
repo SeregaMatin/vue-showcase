@@ -38,12 +38,7 @@ export default {
     return delay(defaultDelayDuration).then(() => product);
   },
 
-  async incrementProductQuantityInCart(product) {
-    // We got no backend to call, so we just return delay promise to mock such async call.
-    return delay(defaultDelayDuration).then(() => product);
-  },
-
-  async decrementProductQuantityInCart(product) {
+  async changeProductQuantityInCart(product, newQuantity) {
     // We got no backend to call, so we just return delay promise to mock such async call.
     return delay(defaultDelayDuration).then(() => product);
   },

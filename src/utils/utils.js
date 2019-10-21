@@ -78,3 +78,9 @@ export const formatNumber = function formatNumber({ number, thousandsSeparator =
 
   return numberParts.join('.');
 };
+
+export const formatPrice = function formatPrice(price) {
+  const options = { number: price, thousandsSeparator: ' ' };
+
+  return formatNumber(options);
+};

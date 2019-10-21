@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { formatPrice } from '@/utils/utils';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 
@@ -64,11 +65,11 @@ export default {
     hasProductInCart(product) {
       return this.$store.getters['cart/hasProduct'](product);
     },
-    getProductFormattedPrice(product) {
-      return this.$store.getters['showcase/productFormattedPrice'](product);
-    },
     getProductImagePath(product, productImage) {
       return this.$store.getters['showcase/productImagePath'](product, productImage);
+    },
+    getProductFormattedPrice(product) {
+      return formatPrice(product.price);
     }
   }
 };

@@ -3,8 +3,7 @@ import db from '@/api/db';
 import {
   arrayToObject,
   isEmptyObject,
-  getRandomObjectItems,
-  formatNumber
+  getRandomObjectItems
 } from '@/utils/utils';
 
 export default {
@@ -16,11 +15,6 @@ export default {
   getters: {
     hasProducts(state) {
       return !isEmptyObject(state.products);
-    },
-    productFormattedPrice: state => (product) => {
-      const options = { number: product.price, thousandsSeparator: ' ' };
-
-      return formatNumber(options);
     },
     productImagePath: state => (product, productImage) => {
       const publicPath = process.env.BASE_URL;

@@ -2,31 +2,11 @@
   display: flex;
   height: 60vh;
 
-  &__empty-content {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-
-    &-image {
-      height: 270px;
-      margin-bottom: 15px;
-      object-fit: contain;
-    }
-
-    &-message{
-      text-align: center;
-      font-size: 19px;
-      line-height: 27px;
-    }
-  }
-
   &__content {
     display: flex;
     flex-direction: row;
-
-    &--no-items {
-
-    }
+    margin-bottom: -$cart__item__margin;
+    width: 100%;
   }
 
   &__items {
@@ -38,45 +18,139 @@
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid $color__neutral--pale;
-    margin-bottom: 16px;
+    margin-bottom: $cart__item__margin;
 
     &-image {
-      flex: 20%;
+      flex: 15%;
+      margin-right: $cart__item__margin;
+      margin-bottom: $cart__item__margin;
 
       &-img {
         display: block;
         width: 100%;
-        max-height: 90px;
+        max-height: $cart__item__img__max-height;
         object-fit: contain;
       }
     }
 
     &-name {
-      flex: 35%;
+      flex: 40%;
+      margin-right: $cart__item__margin;
+      margin-bottom: $cart__item__margin;
+
+      display: -webkit-box;
+      -webkit-line-clamp: $cart__item-name__line-clamp;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: $cart__item-name__line-height * $cart__item-name__line-clamp;
+      font-size: 19px;
+      line-height: $cart__item-name__line-height;
     }
 
     &-quantity {
       flex: 20%;
+      margin-right: $cart__item__margin;
+      margin-bottom: $cart__item__margin;
+      max-width: 140px;
+
+      // Here we are forced to deviate from the BEM methodology.
+      // Numeric input is an external component, and we haven't access to it's inner markup.
+      // So we can't customize it other than that way.
+      &-input {
+        &.vue-numeric-input {
+          width: 100% !important;
+          height: 32px;
+
+          .numeric-input {
+            height: 100%;
+            border: 1px solid $color__neutral--pale;
+            border-radius: 2px;
+            padding: 0 32px;
+
+            &:focus {
+              outline: none;
+            }
+          }
+
+          .btn {
+            width: 32px;
+            background: none;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            cursor: pointer;
+            color: $color__secondary;
+            top:0;
+            bottom: 0;
+
+            &:hover {
+              background: none;
+              color: $color__secondary--light;
+            }
+
+            &:disabled {
+              cursor: inherit;
+            }
+
+            &:active {
+              box-shadow: none;
+            }
+
+            &.btn-decrement {
+              left: 0;
+            }
+
+            &.btn-decrement {
+              right: 0;
+            }
+          }
+        }
+      }
     }
 
     &-price {
       flex: 20%;
+      margin-right: $cart__item__margin;
+      margin-bottom: $cart__item__margin;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
     }
 
     &-remove-button {
       flex: 5%;
+      margin-bottom: $cart__item__margin;
     }
   }
 
   &__summary {
     flex: 20%;
-    margin-left: 16px;
-    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-left: $cart__item__margin;
+    margin-bottom: $cart__item__margin;
+    padding: $cart__item__margin;
     border: 1px solid $color__neutral--pale;
     border-radius: 2px;
 
-    &-total-price {
+    &-total {
+      display: flex;
+      justify-content: space-between;
+      align-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 500;
 
+      &-caption {
+      }
+
+      &-value {
+      }
+    }
+
+    &-print-button {
+      margin-top: $cart__item__margin;
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "vue-showcase",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "license": "UNLICENSED",
   "scripts": {
@@ -13,6 +13,7 @@
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-carousel": "SeregaMatin/vue-carousel#feat/navigation/buttons/slots",
+    "vue-numeric-input": "SeregaMatin/vue-numeric-input#feature-controls-customization",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4"

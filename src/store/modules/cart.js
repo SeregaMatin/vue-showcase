@@ -31,32 +31,28 @@ export default {
       state.isVisible = false;
     },
     addProduct(state, product) {
-      const item = { product, quantity: 1 };
+      const item = { product, quantity: 1, totalPrice: product.price };
 
       Vue.set(state.items, product.id, item);
       state.itemsTotalCount += 1;
       state.itemsTotalPrice += product.price;
     },
-    incrementProductQuantity(state, product) {
+    changeProductQuantity(state, { product, newQuantity }) {
       const item = state.items[product.id];
+      const quantityDelta = newQuantity - item.quantity;
+      const priceDelta = quantityDelta * product.price;
 
-      item.quantity += 1;
-      state.itemsTotalCount += 1;
-      state.itemsTotalPrice += product.price;
-    },
-    decrementProductQuantity(state, product) {
-      const item = state.items[product.id];
-
-      item.quantity -= 1;
-      state.itemsTotalCount -= 1;
-      state.itemsTotalPrice -= product.price;
+      item.quantity += quantityDelta;
+      item.totalPrice += priceDelta;
+      state.itemsTotalCount += quantityDelta;
+      state.itemsTotalPrice += priceDelta;
     },
     removeProduct(state, product) {
       const item = state.items[product.id];
 
       Vue.delete(state.items, product.id);
       state.itemsTotalCount -= item.quantity;
-      state.itemsTotalPrice -= item.quantity * product.price;
+      state.itemsTotalPrice -= item.totalPrice;
     }
   },
   actions: {
@@ -65,15 +61,12 @@ export default {
         commit('addProduct', addedProduct);
       });
     },
-    incrementProductQuantity({ commit }, product) {
-      return db.incrementProductQuantityInCart(product).then((incrementedProduct) => {
-        commit('incrementProductQuantity', incrementedProduct);
-      });
-    },
-    decrementProductQuantity({ commit }, product) {
-      return db.decrementProductQuantityInCart(product).then((decrementedProduct) => {
-        commit('decrementProductQuantity', decrementedProduct);
-      });
+    changeProductQuantity({ commit }, options) {
+      // TODO: uncomment when debounce related user actions in 'cart' component.
+      // return db.changeProductQuantityInCart(product, newQuantity).then((incrementedProduct) => {
+      // commit('changeProductQuantity', incrementedProduct, newQuantity);
+      // });
+      commit('changeProductQuantity', options);
     },
     removeProduct({ commit }, product) {
       return db.removeProductFromCart(product).then((removedProduct) => {
