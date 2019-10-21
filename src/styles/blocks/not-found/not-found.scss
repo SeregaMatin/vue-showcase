@@ -1,11 +1,16 @@
-.page-not-found {
+.not-found {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  margin: auto;
 
   &__image {
-    height: 270px;
-    margin-bottom: 15px;
+    height: 50%;
+    max-width: 100%;
     object-fit: contain;
+    margin-bottom: 15px;
+
   }
 
   &__message{

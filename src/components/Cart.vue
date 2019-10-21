@@ -1,8 +1,8 @@
 <template>
   <div class="cart">
-    <div v-if="cartIsEmpty" class="cart__content cart__content--no-items">
-      Ваша корзина покупок пуста
-    </div>
+    <not-found v-if="cartIsEmpty">
+      К сожалению, ваша корзина покупок пока пуста
+    </not-found>
     <div v-else class="cart__content">
       <div class="cart__items">
         <div v-for="item in cartItems" v-bind:key="item.product.id" class="cart__item">
@@ -37,12 +37,14 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import NotFound from '@/components/NotFound.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 
 export default {
   name: 'Cart',
   components: {
+    NotFound,
     SvgIcon,
     VButton
   },

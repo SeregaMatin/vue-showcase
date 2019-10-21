@@ -1,16 +1,8 @@
 .application {
   &__content {
-    // Take 100% of application's remaining height between top of the page and application's footer.
     flex: 1;
-
-    // Header is fixed on top of the page, so content's 'margin-top' relates to  header's outer height.
-    margin-top: $outer-height__header;
-    margin-bottom: $margin-bottom__content;
-  }
-
-  &__content-container {
-    padding: 0 16px 0 16px;
     width: $width__centered-container;
-    margin: 0 auto 0 auto;
+    margin: $outer-height__header auto $margin-bottom__content auto;
+    display: flex;
   }
 }

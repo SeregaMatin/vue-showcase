@@ -70,20 +70,22 @@
 
   &__purchasing {
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
 
     &-price {
       display: flex;
       align-items: center;
+      padding: 8px 8px 8px 0;
       color: $color__secondary;
       text-transform: uppercase;
       font-size: 2 * $typography__font-size;
       font-weight: 700;
-
-      flex: 50%;
     }
 
     &-cart-button {
-      flex: 50%;
+      min-width: 200px;
     }
   }
 

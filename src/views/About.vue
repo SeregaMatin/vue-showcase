@@ -1,5 +1,5 @@
 <template>
-  <div class="about-view">
+  <div class="view view__about">
     <h1 class="typography typography--headline1">
       О приложении
     </h1>
@@ -119,3 +119,9 @@ export default {
   name: 'about'
 };
 </script>
+
+<style lang="scss">
+@import '@/styles/blocks/about/variables';
+
+@import '@/styles/blocks/about/about';
+</style>

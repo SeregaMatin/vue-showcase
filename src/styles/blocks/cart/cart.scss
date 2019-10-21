@@ -1,5 +1,24 @@
 .cart {
-  max-height: 70vh;
+  display: flex;
+  height: 60vh;
+
+  &__empty-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    &-image {
+      height: 270px;
+      margin-bottom: 15px;
+      object-fit: contain;
+    }
+
+    &-message{
+      text-align: center;
+      font-size: 19px;
+      line-height: 27px;
+    }
+  }
 
   &__content {
     display: flex;

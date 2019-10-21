@@ -1,5 +1,5 @@
 <template>
-  <div v-if="product" class="product-view">
+  <div v-if="hasProduct" class="view view__product">
     <h1 class="typography typography--headline1">
       {{product.name}}
     </h1>
@@ -60,12 +60,17 @@
       </div>
     </div>
   </div>
-  <page-not-found v-else />
+  <div v-else class="view view__product">
+    <not-found>
+      К сожалению, страница запрашиваемого товара не найдена
+    </not-found>
+  </div>
 </template>
 
 <script>
+import { isEmptyObject } from '@/utils/utils';
 import store from '@/store/store';
-import PageNotFound from '@/views/PageNotFound.vue';
+import NotFound from '@/components/NotFound.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
 
@@ -86,7 +91,7 @@ const getProduct = function getProduct({ id: productId, product }) {
 export default {
   name: 'product',
   components: {
-    PageNotFound,
+    NotFound,
     SvgIcon,
     VButton
   },
@@ -96,6 +101,15 @@ export default {
       product: null,
       productActiveImage: null
     };
+  },
+  computed: {
+    hasProduct() {
+      if (!this.product) {
+        return false;
+      }
+
+      return !isEmptyObject(this.product);
+    }
   },
   beforeRouteEnter(to, from, next) {
     getProduct(to.params).then((product) => {

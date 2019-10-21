@@ -1,25 +1,21 @@
 <template>
-  <div class="page-not-found-view">
+  <div class="view view__page-not-found">
     <h1 class="typography typography--headline1">
       404 - Страница не найдена
     </h1>
-    <div class="page-not-found">
-      <img class="page-not-found__image" src="@/assets/images/blocks/page-not-found/page-not-found.png">
-      <div class="page-not-found__message">
-        К сожалению, запрашиваемая страница не найдена
-      </div>
-    </div>
+    <not-found>
+      К сожалению, запрашиваемая страница не найдена
+    </not-found>
   </div>
 </template>
 
 <script>
+import NotFound from '@/components/NotFound.vue';
+
 export default {
-  name: 'pageNotFound'
+  name: 'pageNotFound',
+  components: {
+    NotFound
+  }
 };
 </script>
-
-<style lang="scss">
-@import '@/styles/blocks/page-not-found/variables';
-
-@import '@/styles/blocks/page-not-found/page-not-found';
-</style>

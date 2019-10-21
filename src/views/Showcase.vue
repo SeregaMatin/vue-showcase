@@ -1,5 +1,5 @@
 <template>
-  <div class="showcase-view">
+  <div v-if="hasProducts" class="view view__showcase">
     <h1 class="typography typography--headline1">
       Витрина товаров
     </h1>
@@ -27,21 +27,22 @@
         </svg-icon>
       </template>
     </carousel>
-    <div v-else class="showcase">
-      <div class="showcase__product showcase__product--no-products">
-        <img class="showcase__product-image" src="@/assets/images/blocks/showcase/no-products.png">
-        <div class="showcase__product-name">
-          К сожалению, на нашей витрине пока отсутствуют товары
-        </div>
-      </div>
-    </div>
+  </div>
+  <div v-else class="view view__showcase">
+    <h1 class="typography typography--headline1">
+      Витрина товаров
+    </h1>
+    <not-found>
+      К сожалению, на нашей витрине пока отсутствуют товары
+    </not-found>
   </div>
 </template>
 
 <script>
 import { Carousel, Slide } from 'vue-carousel';
-import { getRandomInt } from '@/utils/utils';
+import { isEmptyObject, getRandomInt } from '@/utils/utils';
 import store from '@/store/store';
+import NotFound from '@/components/NotFound.vue';
 import ShowcaseProduct from '@/components/ShowcaseProduct.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 
@@ -58,6 +59,7 @@ const getRandomProducts = function getProduct(count) {
 export default {
   name: 'showcase',
   components: {
+    NotFound,
     ShowcaseProduct,
     SvgIcon,
     Carousel,
@@ -66,8 +68,24 @@ export default {
   data() {
     return {
       publicPath: process.env.BASE_URL,
-      products: {}
+      products: null
     };
+  },
+  computed: {
+    hasProducts() {
+      if (!this.products) {
+        return false;
+      }
+
+      return !isEmptyObject(this.products);
+    },
+    productsCount() {
+      if (!this.products) {
+        return 0;
+      }
+
+      return Object.keys(this.products).length;
+    }
   },
   beforeRouteEnter(to, from, next) {
     const randomProductsCount = getRandomInt(1, 10);
@@ -82,11 +100,6 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     this.$options.beforeRouteEnter(to, from, next);
-  },
-  computed: {
-    productsCount() {
-      return Object.keys(this.products).length;
-    }
   }
 };
 </script>

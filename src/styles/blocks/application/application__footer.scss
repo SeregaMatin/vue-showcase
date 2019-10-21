@@ -1,18 +1,13 @@
 .application {
   &__footer {
-    height: $height__footer;
     background-color: $color__surface;
     border-top: 1px solid $color__neutral--light;
-  }
-
-  &__footer-container {
+    padding: 16px;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    padding: 0 16px 0 16px;
-    height: 100%;
-    width: $width__centered-container;
-    margin: 0 auto 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
   &__footer-logo {
@@ -22,16 +17,10 @@
   &__footer-links {
     display: flex;
     flex-direction: column;
-    margin: auto;
-    height: 80px;
-    padding-top: 23px;
   }
 
   &__footer-contacts {
     display: flex;
     flex-direction: column;
-    margin: auto 0 auto 0;
-    height: 80px;
-    padding-top: 23px;
   }
 }

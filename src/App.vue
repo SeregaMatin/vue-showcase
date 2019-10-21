@@ -29,9 +29,12 @@
       </div>
       <div class="application__header-bottom-bar">
         <router-link to="/" class="logo application__header-logo">
-          Демонстрационное приложение
-          <br>
-          реализованное на Vue.js
+          <img class="logo__image" src="@/assets/images/blocks/logo/logo.png" alt="Логотип приложения">
+            <div class="logo__caption">
+              Демонстрационное приложение
+              <br>
+              реализованное на Vue.js
+            </div>
         </router-link>
         <div class="navigation application__header-navigation">
           <router-link to="/" class="navigation__tab" exact-active-class="navigation__tab--active">
@@ -53,41 +56,40 @@
       </transition>
     </div>
     <div class="application__content">
-      <div class="application__content-container">
-        <router-view/>
-      </div>
+      <router-view/>
     </div>
     <div class="application__footer">
-      <div class="application__footer-container">
-        <router-link to="/" class="logo application__footer-logo">
-          Демонстрационное приложение
-          <br>
-          реализованное на Vue.js
-        </router-link>
-        <div class="application__footer-links">
-          <a class="link link--on-surface" href="https://github.com/SeregaMatin">
-            <svg-icon src="icomoon.svg#icon-github" class="svg-icon--size_m link__icon link__icon--left-aligned">
-            </svg-icon>
-            github.com/SeregaMatin
-          </a>
-          <a class="link link--on-surface" href="https://vk.com/seregamatin">
-            <svg-icon src="icomoon.svg#icon-vk" class="svg-icon--size_m link__icon link__icon--left-aligned">
-            </svg-icon>
-            vk.com/seregamatin
-          </a>
-        </div>
-        <div class="application__footer-contacts">
-          <a class="link link--on-surface typography typography--body1" href="mailto:seregamatin@gmail.com">
-            <svg-icon src="icomoon.svg#icon-mail" class="svg-icon--size_m link__icon link__icon--left-aligned">
-            </svg-icon>
-            seregamatin@gmail.com
-          </a>
-          <a class="link link--on-surface" href="https://api.whatsapp.com/send?phone=79124923206">
-            <svg-icon src="icomoon.svg#icon-whatsapp" class="svg-icon--size_m link__icon link__icon--left-aligned">
-            </svg-icon>
-            +7(912)492-32-06
-          </a>
-        </div>
+      <router-link to="/" class="logo application__footer-logo">
+        <img class="logo__image" src="@/assets/images/blocks/logo/logo.png" alt="Логотип приложения">
+          <div class="logo__caption">
+            Демонстрационное приложение
+            <br>
+            реализованное на Vue.js
+          </div>
+      </router-link>
+      <div class="application__footer-links">
+        <a class="link link--on-surface" href="https://github.com/SeregaMatin">
+          <svg-icon src="icomoon.svg#icon-github" class="svg-icon--size_m link__icon link__icon--left-aligned">
+          </svg-icon>
+          github.com/SeregaMatin
+        </a>
+        <a class="link link--on-surface" href="https://vk.com/seregamatin">
+          <svg-icon src="icomoon.svg#icon-vk" class="svg-icon--size_m link__icon link__icon--left-aligned">
+          </svg-icon>
+          vk.com/seregamatin
+        </a>
+      </div>
+      <div class="application__footer-contacts">
+        <a class="link link--on-surface typography typography--body1" href="mailto:seregamatin@gmail.com">
+          <svg-icon src="icomoon.svg#icon-mail" class="svg-icon--size_m link__icon link__icon--left-aligned">
+          </svg-icon>
+          seregamatin@gmail.com
+        </a>
+        <a class="link link--on-surface" href="https://api.whatsapp.com/send?phone=79124923206">
+          <svg-icon src="icomoon.svg#icon-whatsapp" class="svg-icon--size_m link__icon link__icon--left-aligned">
+          </svg-icon>
+          +7(912)492-32-06
+        </a>
       </div>
     </div>
   </div>
@@ -151,6 +153,7 @@ export default {
 @import '@/styles/blocks/logo/variables';
 @import '@/styles/blocks/navigation/variables';
 @import '@/styles/blocks/typography/variables';
+@import '@/styles/blocks/view/variables';
 
 @import '@/styles/blocks/application/application';
 @import '@/styles/blocks/application/application__header';
@@ -163,6 +166,7 @@ export default {
 @import '@/styles/blocks/navigation/navigation';
 @import '@/styles/blocks/typography/typography__roboto-font';
 @import '@/styles/blocks/typography/typography';
+@import '@/styles/blocks/view/view';
 
 @import '@/styles/transitions/fade';
 </style>
