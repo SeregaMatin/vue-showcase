@@ -22,10 +22,25 @@
 <script>
 import SvgIcon from '@/components/SvgIcon.vue';
 
+// See @/styles/blocks/body.scss.
+const overflowHiddenClass = 'body--overflow_hidden';
+
 export default {
   name: 'VModal',
   components: {
     SvgIcon
+  },
+  mounted() {
+    // Disable scrolling on document's body when modal dialog is opened.
+    if (!document.body.classList.contains(overflowHiddenClass)) {
+      document.body.classList.add(overflowHiddenClass);
+    }
+  },
+  destroyed() {
+    // Restore scrolling on document's body when modal dialog is closed.
+    if (document.body.classList.contains(overflowHiddenClass)) {
+      document.body.classList.remove(overflowHiddenClass);
+    }
   },
   methods: {
     close() {

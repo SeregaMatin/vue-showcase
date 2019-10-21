@@ -1,8 +1,7 @@
 <template>
   <div id="app" class="application typography">
     <transition name="fade">
-      <div v-if="isLoading" class="loader application__loader">
-      </div>
+      <v-loader v-if="isLoading" class="application__loader" />
     </transition>
     <transition name="fade">
       <v-modal v-if="cartIsVisible" v-on:close="hideCart()" class="application__cart-modal">
@@ -99,6 +98,7 @@ import { mapState, mapGetters } from 'vuex';
 import Cart from '@/components/Cart.vue';
 import SvgIcon from '@/components/SvgIcon.vue';
 import VButton from '@/components/VButton.vue';
+import VLoader from '@/components/VLoader.vue';
 import VMessage from '@/components/VMessage.vue';
 import VModal from '@/components/VModal.vue';
 
@@ -108,6 +108,7 @@ export default {
     Cart,
     SvgIcon,
     VButton,
+    VLoader,
     VMessage,
     VModal
   },
@@ -151,9 +152,6 @@ export default {
 @import '@/styles/blocks/navigation/variables';
 @import '@/styles/blocks/typography/variables';
 
-@import '@/styles/mixins/dimmer';
-@import '@/styles/mixins/loader';
-
 @import '@/styles/blocks/application/application';
 @import '@/styles/blocks/application/application__header';
 @import '@/styles/blocks/application/application__content';
@@ -161,7 +159,6 @@ export default {
 @import '@/styles/blocks/body/body';
 @import '@/styles/blocks/link/link';
 @import '@/styles/blocks/link/link__icon';
-@import '@/styles/blocks/loader/loader';
 @import '@/styles/blocks/logo/logo';
 @import '@/styles/blocks/navigation/navigation';
 @import '@/styles/blocks/typography/typography__roboto-font';
