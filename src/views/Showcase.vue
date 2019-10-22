@@ -56,6 +56,10 @@ const getRandomProducts = function getProduct(count) {
   });
 };
 
+const initViewWithProducts = function initViewWithProduct({ vm, products }) {
+  vm.products = products;
+};
+
 export default {
   name: 'showcase',
   components: {
@@ -92,14 +96,25 @@ export default {
 
     getRandomProducts(randomProductsCount).then((randomProducts) => {
       // Initialize component's 'products' data property and continue transition.
-      next((vm) => { vm.products = randomProducts; });
+      next(vm => initViewWithProducts({ vm, products: randomProducts }));
     }).catch((error) => {
       // Abort transition.
       next(false);
     });
   },
   beforeRouteUpdate(to, from, next) {
-    this.$options.beforeRouteEnter(to, from, next);
+    const randomProductsCount = getRandomInt(1, 10);
+
+    getRandomProducts(randomProductsCount).then((randomProducts) => {
+      // Initialize component's 'products' data property.
+      initViewWithProducts({ vm: this, products: randomProducts });
+
+      // Continue transition.
+      next();
+    }).catch((error) => {
+      // Abort transition.
+      next(false);
+    });
   }
 };
 </script>

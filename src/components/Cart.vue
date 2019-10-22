@@ -7,10 +7,22 @@
       <div class="cart__items">
         <div v-for="item in cartItems" v-bind:key="item.product.id" class="cart__item">
           <div class="cart__item-image">
-            <img class="cart__item-image-img" v-bind:src="getProductImagePath(item.product, item.product.cover)" v-bind:alt="item.product.name">
+            <router-link
+              v-bind:to="{ name: 'product', params: { id: item.product.id, product: item.product }}"
+              v-on:click.native="hideCart()"
+              class="link"
+            >
+              <img class="cart__item-image-img" v-bind:src="getProductImagePath(item.product, item.product.cover)" v-bind:alt="item.product.name">
+            </router-link>
           </div>
           <div class="cart__item-name">
-            {{item.product.name}}
+            <router-link
+              v-bind:to="{ name: 'product', params: { id: item.product.id, product: item.product }}"
+              v-on:click.native="hideCart()"
+              class="link link--on-background"
+            >
+              {{item.product.name}}
+            </router-link>
           </div>
           <div class="cart__item-quantity">
             <vue-numeric-input
@@ -117,6 +129,9 @@ export default {
     },
     getFormattedPrice(price) {
       return formatPrice(price);
+    },
+    hideCart() {
+      this.$store.commit('cart/hide');
     },
     printCart() {
       const cartContent = this.$el.getElementsByClassName('cart__content')[0];

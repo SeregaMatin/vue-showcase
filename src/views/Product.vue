@@ -88,6 +88,14 @@ const getProduct = function getProduct({ id: productId, product }) {
   });
 };
 
+const initViewWithProduct = function initViewWithProduct({ vm, product }) {
+  vm.product = product;
+
+  vm.productActiveImage = Array.isArray(product.images) && product.images.length > 0
+    ? product.images[0]
+    : null;
+};
+
 export default {
   name: 'product',
   components: {
@@ -113,21 +121,24 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     getProduct(to.params).then((product) => {
-      // Initialize component's 'product' data property and continue transition.
-      next((vm) => {
-        vm.product = product;
-
-        vm.productActiveImage = Array.isArray(product.images) && product.images.length > 0
-          ? product.images[0]
-          : null;
-      });
+      // Initialize view properties related to product & continue transition.
+      next(vm => initViewWithProduct({ vm, product }));
     }).catch((error) => {
       // Abort transition.
       next(false);
     });
   },
   beforeRouteUpdate(to, from, next) {
-    this.$options.beforeRouteEnter(to, from, next);
+    getProduct(to.params).then((product) => {
+      // Initialize view properties related to product.
+      initViewWithProduct({ vm: this, product });
+
+      // Continue transition.
+      next();
+    }).catch((error) => {
+      // Abort transition.
+      next(false);
+    });
   },
   methods: {
     addProductToCart(product) {
