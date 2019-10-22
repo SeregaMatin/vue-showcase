@@ -4,7 +4,7 @@
       <v-loader v-if="isLoading" class="application__loader" />
     </transition>
     <transition name="fade">
-      <v-modal v-if="cartIsVisible" v-on:close="hideCart()" class="application__cart-modal">
+      <v-modal v-if="cartIsShown" v-on:close="hideCart()" class="application__cart-modal">
         <template v-slot:header>
           Корзина покупок
         </template>
@@ -123,12 +123,17 @@ export default {
       errorMessage: 'errorMessage'
     }),
     ...mapState('cart', {
+      cartIsShown: state => state.isShown,
       cartItemsTotalCount: state => state.itemsTotalCount
     }),
     ...mapGetters('cart', {
-      cartIsVisible: 'isVisible',
       cartIsEmpty: 'isEmpty'
     })
+  },
+  created() {
+    // Cart state restored from localStorage can also contain cart visibility flag.
+    // So we hide cart at app start.
+    this.hideCart();
   },
   methods: {
     showCart() {

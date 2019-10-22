@@ -8,12 +8,9 @@ export default {
     },
     itemsTotalCount: 0,
     itemsTotalPrice: 0,
-    isVisible: false
+    isShown: false
   },
   getters: {
-    isVisible(state) {
-      return state.isVisible;
-    },
     isEmpty(state) {
       return state.itemsTotalCount === 0;
     },
@@ -25,10 +22,10 @@ export default {
   },
   mutations: {
     show(state) {
-      state.isVisible = true;
+      state.isShown = true;
     },
     hide(state) {
-      state.isVisible = false;
+      state.isShown = false;
     },
     addProduct(state, product) {
       const item = { product, quantity: 1, totalPrice: product.price };
