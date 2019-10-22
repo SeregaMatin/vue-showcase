@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas';
 import VueNumericInput from 'vue-numeric-input';
 import { mapState, mapGetters } from 'vuex';
 import { formatPrice } from '@/utils/utils';
@@ -113,8 +114,55 @@ export default {
       return formatPrice(price);
     },
     printCart() {
-      // Mock print operation while it isn't implemented.
-      return new Promise(resolve => setTimeout(resolve, 2000));
+      const cartContent = this.$el.getElementsByClassName('cart__content')[0];
+      const cartContentRect = cartContent.getBoundingClientRect();
+
+      // We don't need to print whole page, we need only cart content.
+      // So we can't call window.print() on a current window.
+      // But we can capture cart content, append it to a new window, and the call window.print() on that new window.
+      html2canvas(cartContent, {
+        windowWidth: cartContentRect.width,
+        windowHeight: cartContentRect.height,
+        width: cartContent.scrollWidth,
+        height: cartContent.scrollHeight,
+
+        // Cart content located inside modal window with fixed position, so we need some scroll to be performed.
+        scrollX: (1 - cartContentRect.width / window.innerWidth) * cartContentRect.x,
+        scrollY: (1 - cartContentRect.height / window.innerHeight) * cartContentRect.y,
+
+        // Exclude print button from resulting canvas.
+        ignoreElements: element => element.classList.contains('cart__summary-print-button'),
+
+        // Handle cloned document before it will be converted into canvas.
+        onclone: (clonedDocument) => {
+          const clonedCartContent = clonedDocument.getElementsByClassName('cart__content')[0];
+          const clonedItemNameElements = clonedCartContent && clonedCartContent.getElementsByClassName('cart__item-name');
+          const count = clonedItemNameElements.length;
+
+          let i;
+          for (i = 0; i < count; i++) {
+            // Html2Canvas can't handle element displayed like '-webkit-box',
+            // so we need to change their 'display' property into 'block'
+            // to make them visible while printing.
+            clonedItemNameElements[i].setAttribute('style', 'display: block;');
+          }
+        }
+      }).then((cartCanvas) => {
+        // Finally open resulting canvas in a new window & print it.
+        const printWindow = window.open('', 'Print-Window');
+        printWindow.document.open();
+        printWindow.document.write(`
+          <html>
+            <body onload="window.print()">
+            </body>
+          </html>`);
+        printWindow.document.body.appendChild(cartCanvas);
+        printWindow.document.close();
+
+        setTimeout(() => { printWindow.close(); });
+      }).catch((error) => {
+        this.$store.commit('showError', error);
+      });
     }
   }
 };
