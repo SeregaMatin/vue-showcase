@@ -31,6 +31,11 @@
           </div>
           <div class="cart__item-price">
             {{getFormattedPrice(item.totalPrice)}} &#8381;
+            <transition name="fade">
+              <div v-if="item.quantity > 1" class="cart__item-price-per-single-unit">
+                {{getFormattedPrice(item.product.price)}} &#8381; /шт.
+              </div>
+            </transition>
           </div>
           <v-button
             v-on:click="removeProductFromCart(item.product)"
@@ -173,4 +178,6 @@ export default {
 @import '@/styles/blocks/cart/variables';
 
 @import '@/styles/blocks/cart/cart';
+
+@import '@/styles/transitions/fade';
 </style>
